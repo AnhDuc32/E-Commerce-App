@@ -45,7 +45,7 @@ const Login = () => {
 
   if (loading && AsyncStorage.getItem('authToken')) {
     return (
-      <View className='flex-1 items-center justify-center'>
+      <View className="flex-1 items-center justify-center bg-white">
         <ActivityIndicator size="large" color="#0000ff" />
         <Image
           source={require('../assets/e_commerce_logo-removebg-preview.png')}
@@ -53,7 +53,7 @@ const Login = () => {
           style={{ resizeMode: 'contain' }}
         />
       </View>
-    )
+    );
   }
 
   const toggleRememberMe = () => {
@@ -73,7 +73,6 @@ const Login = () => {
     axios
       .post(`http://${API_URL}:8000/login`, user)
       .then((response) => {
-        console.log(response);
         const token = response.data.token;
         AsyncStorage.setItem('authToken', token);
         navigation.replace('Main');
