@@ -49,7 +49,7 @@ const Profile = () => {
   const [user, setUser] = useState();
 
   useEffect(() => {
-    const fetchUserPrfile = async () => {
+    const fetchUserProfile = async () => {
       try {
         const response = await axios.get(`http://${API_URL}:8000/profile/${userId}`);
 
@@ -59,7 +59,7 @@ const Profile = () => {
         console.error('Error: ', error);
       }
     };
-    fetchUserPrfile();
+    fetchUserProfile();
   }, []);
 
   const clearAuthToken = async () => {
@@ -74,7 +74,7 @@ const Profile = () => {
     setTimeout(() => {
       clearAuthToken();
       setLoading(false);
-    }, 2000);
+    }, 1000);
   };
 
   useEffect(() => {
@@ -129,9 +129,10 @@ const Profile = () => {
 
       <View className="mt-5 flex-1 gap-3">
         <TouchableOpacity
+          onPress={() => navigation.navigate('EditProfile')}
           className="flex-1 flex-row items-center justify-between rounded-3xl bg-gray-200 px-5 py-3"
           activeOpacity={0.7}>
-          <Text>Edit Profile</Text>
+          <Text className='font-medium'>Edit Profile</Text>
 
           <AntDesign name="edit" size={24} color="black" />
         </TouchableOpacity>
@@ -140,7 +141,7 @@ const Profile = () => {
           className="flex-1 flex-row items-center justify-between rounded-3xl bg-gray-200 px-5 py-3"
           activeOpacity={0.7}
           onPress={logOut}>
-          <Text>Log Out</Text>
+          <Text className='font-medium'>Log Out</Text>
 
           <Ionicons name="exit-outline" size={24} color="black" />
         </TouchableOpacity>
@@ -153,7 +154,22 @@ const Profile = () => {
           <View className="mb-10 mt-5 flex-row flex-wrap items-center justify-center gap-4">
             {orders.length > 0 ? (
               getUniqueProducts(orders).map((product, index) => (
-                <TouchableOpacity key={index} className="">
+                <TouchableOpacity
+                  key={index}
+                  onPress={() =>
+                    navigation.navigate('Info', {
+                      id: product.id,
+                      title: product.name,
+                      price: product.price,
+                      carouselImages: Array.isArray(product.image)
+                        ? product.image
+                        : [product.image],
+                      color: product.color,
+                      size: product.size,
+                      oldPrice: product.oldPrice,
+                      item: product,
+                    })
+                  }>
                   <View className="rounded-xl border border-gray-300 p-3">
                     <Image
                       source={{ uri: product.image }}

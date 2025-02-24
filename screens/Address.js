@@ -146,8 +146,8 @@ const Address = () => {
           <TouchableOpacity
             onPress={handleAddAddress}
             activeOpacity={0.7}
-            className="mt-5 items-center justify-center rounded-lg bg-yellow-400 p-5">
-            <Text className="font-bold">Add Address</Text>
+            className="mt-10 items-center justify-center rounded-lg bg-yellow-400 p-5">
+            <Text className="font-bold text-xl">Add Address</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

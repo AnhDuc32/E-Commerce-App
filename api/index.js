@@ -118,12 +118,6 @@ app.get('/verify/:token', async (req, res) => {
   }
 });
 
-// const generateSecretKey = () => {
-//   const secretKey = crypto.randomBytes(32).toString('hex');
-
-//   return secretKey;
-// };
-
 const secretKey = process.env.JWT_SECRET;
 
 // Endpoint for Login
@@ -250,6 +244,30 @@ app.get('/profile/:userId', async (req, res) => {
   } catch (error) {
     console.log('Error retrieving the user profile', error);
     res.status(500).json({ message: 'Error retrieving the user profile' });
+  }
+});
+
+// Endpoint to update the user profile
+app.put('/profile/:userId', async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const { name, email, password } = req.body;
+
+    const updateUser = await User.findByIdAndUpdate(
+      userId,
+      { name, email, password },
+      { new: true, runValidators: true }
+    );
+
+    if (!updateUser) {
+      console.log('User not found');
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json({ message: 'User profile updated successfully' });
+  } catch (error) {
+    console.log('Error updating the user profile', error);
+    res.status(500).json({ message: 'Error updating the user profile' });
   }
 });
 

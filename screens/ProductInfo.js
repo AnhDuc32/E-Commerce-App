@@ -49,11 +49,12 @@ const ProductInfo = () => {
         </View>
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {route.params.carouselImages.map((item, index) => (
+          {(route?.params?.carouselImages ?? []).map((item, index) => (
             <ImageBackground
               source={{ uri: item }}
               key={index}
-              style={{ width, height, marginTop: 25, resizeMode: 'contain' }}>
+              style={{ width, height, marginTop: 25 }}
+              imageStyle={{ resizeMode: 'contain' }}>
               <View className="flex-row items-center justify-between p-5">
                 <View className="h-11 w-11 flex-row items-center justify-center rounded-3xl bg-red-500">
                   <Text className="text-center text-sm text-white">72% off</Text>
@@ -79,17 +80,21 @@ const ProductInfo = () => {
 
         <Text className="h-0 border border-gray-500" />
 
-        <View className="flex-row items-center p-3">
-          <Text>Color: </Text>
-          <Text className="font-bold">{route.params.color}</Text>
-        </View>
+        {route?.params?.color && route?.params?.size && (
+          <View>
+            <View className="flex-row items-center p-3">
+              <Text>Color: </Text>
+              <Text className="font-bold">{route.params.color}</Text>
+            </View>
 
-        <View className="flex-row items-center p-3">
-          <Text>Size: </Text>
-          <Text className="font-bold">{route.params.size}</Text>
-        </View>
+            <View className="flex-row items-center p-3">
+              <Text>Size: </Text>
+              <Text className="font-bold">{route.params.size}</Text>
+            </View>
 
-        <Text className="h-0 border border-gray-500" />
+            <Text className="h-0 border border-gray-500" />
+          </View>
+        )}
 
         <View className="p-3">
           <Text className="my-2 font-bold">Total: ${route.params.price}</Text>
@@ -120,6 +125,10 @@ const ProductInfo = () => {
         </TouchableOpacity>
 
         <TouchableOpacity
+          onPress={() => {
+            addItemToCart(route.params.item)
+            navigation.navigate('Confirm')
+          }}
           activeOpacity={0.7}
           className="mx-3 mb-3 items-center justify-center rounded-3xl bg-orange-400 py-3">
           <Text>Buy Now</Text>

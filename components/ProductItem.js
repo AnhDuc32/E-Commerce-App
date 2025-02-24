@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addToCart } from 'redux/CartReducer';
+import { useNavigation } from '@react-navigation/native';
 
 const ProductItem = ({ item }) => {
   const [addedToCart, setAddedToCart] = useState(false);
@@ -14,8 +15,24 @@ const ProductItem = ({ item }) => {
     }, 60000);
   };
 
+  const navigation = useNavigation();
+
   return (
-    <TouchableOpacity activeOpacity={0.7} className="my-5 items-center justify-center">
+    <TouchableOpacity
+      activeOpacity={0.7}
+      className="my-5 items-center justify-center"
+      onPress={() =>
+        navigation.navigate('Info', {
+          id: item.id,
+          title: item.name,
+          price: item.price,
+          carouselImages: Array.isArray(item.image) ? item.image : [item.image],
+          color: item.color,
+          size: item.size,
+          oldPrice: item.oldPrice,
+          item: item,
+        })
+      }>
       <Image
         source={{ uri: item.image }}
         className="mx-5 mb-3 h-44 w-44"
@@ -32,7 +49,9 @@ const ProductItem = ({ item }) => {
       </View>
 
       <TouchableOpacity
-        onPress={() => addItemToCart(item)}
+        onPress={() => {
+          addItemToCart(item);
+        }}
         activeOpacity={0.7}
         className="mt-2 items-center justify-center rounded-3xl bg-yellow-400 px-6 py-2">
         {addedToCart ? (

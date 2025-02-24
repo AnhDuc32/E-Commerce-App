@@ -16,6 +16,7 @@ import Cart from 'screens/Cart';
 import Profile from 'screens/Profile';
 import Confirmation from 'screens/Confirmation';
 import Order from 'screens/Order';
+import EditProfile from 'screens/EditProfile';
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -91,6 +92,8 @@ const StackNavigator = () => {
         <Stack.Screen name="Confirm" component={Confirmation} options={{ headerShown: false }} />
 
         <Stack.Screen name="Order" component={Order} options={{ headerShown: false }} />
+
+        <Stack.Screen name="EditProfile" component={EditProfile} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
