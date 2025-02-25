@@ -60,7 +60,7 @@ const Profile = () => {
       }
     };
     fetchUserProfile();
-  }, []);
+  }, [user]);
 
   const clearAuthToken = async () => {
     await AsyncStorage.removeItem('authToken');
@@ -130,7 +130,7 @@ const Profile = () => {
       <View className="mt-5 flex-1 gap-3">
         <TouchableOpacity
           onPress={() => navigation.navigate('EditProfile')}
-          className="flex-1 flex-row items-center justify-between rounded-3xl bg-gray-200 px-5 py-3"
+          className="flex-1 flex-row items-center justify-between rounded-3xl bg-gray-100 px-5 py-3"
           activeOpacity={0.7}>
           <Text className='font-medium'>Edit Profile</Text>
 
@@ -138,7 +138,7 @@ const Profile = () => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          className="flex-1 flex-row items-center justify-between rounded-3xl bg-gray-200 px-5 py-3"
+          className="flex-1 flex-row items-center justify-between rounded-3xl bg-gray-100 px-5 py-3"
           activeOpacity={0.7}
           onPress={logOut}>
           <Text className='font-medium'>Log Out</Text>
@@ -155,6 +155,7 @@ const Profile = () => {
             {orders.length > 0 ? (
               getUniqueProducts(orders).map((product, index) => (
                 <TouchableOpacity
+                  activeOpacity={0.7}
                   key={index}
                   onPress={() =>
                     navigation.navigate('Info', {

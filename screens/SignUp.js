@@ -53,6 +53,8 @@ const SignUp = () => {
         setName('');
         setPassword('');
         setEmail('');
+        setConfirmPassword('');
+        navigation.navigate('Login');
       })
       .catch((error) => {
         console.log('Sign Up failed:', error); // Log full error object

@@ -362,6 +362,7 @@ const Home = () => {
                     color: item.color,
                     size: item.size,
                     oldPrice: item.oldPrice,
+                    offer: item.offer,
                     item: item,
                   })
                 }

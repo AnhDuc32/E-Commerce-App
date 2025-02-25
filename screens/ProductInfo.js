@@ -56,9 +56,11 @@ const ProductInfo = () => {
               style={{ width, height, marginTop: 25 }}
               imageStyle={{ resizeMode: 'contain' }}>
               <View className="flex-row items-center justify-between p-5">
-                <View className="h-11 w-11 flex-row items-center justify-center rounded-3xl bg-red-500">
-                  <Text className="text-center text-sm text-white">72% off</Text>
-                </View>
+                {route.params?.offer && (
+                  <View className="h-11 w-11 flex-row items-center justify-center rounded-3xl bg-red-500">
+                    <Text className="text-center text-sm text-white">{route.params?.offer}</Text>
+                  </View>
+                )}
 
                 <View className="h-11 w-11 items-center justify-center rounded-3xl bg-gray-200">
                   <Ionicons name="share-social" size={24} color="black" />
@@ -73,7 +75,7 @@ const ProductInfo = () => {
         </ScrollView>
 
         <View className="p-3">
-          <Text className="font-medium">{route.params.title}</Text>
+          <Text className="font-medium">{route.params?.title}</Text>
 
           <Text className="mt-2 font-bold">${route.params.price}</Text>
         </View>
@@ -126,8 +128,8 @@ const ProductInfo = () => {
 
         <TouchableOpacity
           onPress={() => {
-            addItemToCart(route.params.item)
-            navigation.navigate('Confirm')
+            addItemToCart(route.params.item);
+            navigation.navigate('Confirm');
           }}
           activeOpacity={0.7}
           className="mx-3 mb-3 items-center justify-center rounded-3xl bg-orange-400 py-3">

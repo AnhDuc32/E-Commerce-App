@@ -24,7 +24,7 @@ const ProductItem = ({ item }) => {
       onPress={() =>
         navigation.navigate('Info', {
           id: item.id,
-          title: item.name,
+          title: item.title,
           price: item.price,
           carouselImages: Array.isArray(item.image) ? item.image : [item.image],
           color: item.color,
